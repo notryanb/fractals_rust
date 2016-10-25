@@ -13,6 +13,9 @@ pub struct Point{
     y: u32
 }
 
+const WIDTH: u32 = 800;
+const HEIGHT: u32 = 600;
+
 /// main program
 pub fn main() {
 

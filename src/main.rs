@@ -39,7 +39,7 @@ pub fn main() {
     let pixel = img[(0, 0)];
 
     while counter > 0 {
-        counter = counter - 1;
+        counter -= 1;
         num = rand::thread_rng().gen_range(0, 3);
         pen.x = (pen.x + pts[num].x) / 2;
         pen.y = (pen.y + pts[num].y) / 2;

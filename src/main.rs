@@ -6,6 +6,7 @@ extern crate rand;
 use rand::Rng;
 use std::fs::File;
 use std::path::Path;
+use std::fmt;
 
 /// points used for building triangle and plot on canvas
 pub struct Point{
@@ -13,8 +14,22 @@ pub struct Point{
     y: u32
 }
 
+impl fmt::Display for Point {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{} {}", self.x, self.y)
+    }
+}
+
 const WIDTH: u32 = 800;
 const HEIGHT: u32 = 600;
+
+fn halfway_points(pt1: &Point, pt2: &Point) -> Point {
+    Point { 
+        x: (pt1.x + pt2.x) / 2,
+        y: (pt1.y + pt2.y) / 2
+    }
+
+}
 
 /// main program
 pub fn main() {
@@ -41,8 +56,8 @@ pub fn main() {
     while counter > 0 {
         counter -= 1;
         num = rand::thread_rng().gen_range(0, 3);
-        pen.x = (pen.x + pts[num].x) / 2;
-        pen.y = (pen.y + pts[num].y) / 2;
+        pen = halfway_points(&pen, &pts[num]);
+        println!("Point: {}", pen);
         img.put_pixel(pen.x, pen.y, pixel);
     }
 

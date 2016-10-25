@@ -57,7 +57,7 @@ pub fn main() {
         counter -= 1;
         num = rand::thread_rng().gen_range(0, 3);
         pen = halfway_points(&pen, &pts[num]);
-        println!("Point: {}", pen);
+        //println!("Point: {}", pen);
         img.put_pixel(pen.x, pen.y, pixel);
     }
 

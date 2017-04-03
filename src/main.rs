@@ -120,6 +120,6 @@ pub fn main() {
     //     img.put_pixel(pen.x, pen.y, pixel);
     // }
 
-    let ref mut f_out = File::create(&Path::new("noise.png")).unwrap();
+    let ref mut f_out = File::create(&Path::new("mandlebrot.png")).unwrap();
     let _ = image::ImageLuma8(img).save(f_out, image::PNG);
 }

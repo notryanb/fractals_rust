@@ -8,6 +8,10 @@ use std::fs::File;
 use std::path::Path;
 use std::fmt;
 
+/// Image dimensions
+const WIDTH: u32 = 800;
+const HEIGHT: u32 = 600;
+
 /// points used for building triangle and plot on canvas
 pub struct Point{
     x: u32,
@@ -20,8 +24,6 @@ impl fmt::Display for Point {
     }
 }
 
-const WIDTH: u32 = 800;
-const HEIGHT: u32 = 600;
 
 /// Halfway function
 pub fn halfway_points(pt1: &Point, pt2: &Point) -> Point {
@@ -34,34 +36,36 @@ pub fn halfway_points(pt1: &Point, pt2: &Point) -> Point {
 
 /// main program
 pub fn main() {
+
     let mut img = image::ImageBuffer::from_fn(WIDTH, HEIGHT, |x, y| {
-        if x == 0 && y == 0 {
-            image::Luma([0u8])
-        } else {
-            image::Luma([255u8])
-        }
+        let num = rand::thread_rng().gen_range(0,255);
+        image::Luma([num])
     });
 
-    let mut counter: u32 = 1_000_000;
+    // let mut counter: u32 = WIDTH * HEIGHT;
 
-    let pts: [Point; 3] = [
-            Point { x: WIDTH / 2, y: 0 },
-            Point { x: 0, y: HEIGHT },
-            Point { x: WIDTH, y: HEIGHT }
-    ];
+    // for i in 0..counter {
+    //     num = rand::thread_rng().gen_range(0,255);
+    // }
 
-    let mut num: usize;
-    let mut pen = Point { x: 350, y:350 };
-    let pixel = img[(0, 0)];
+    // let pts: [Point; 3] = [
+    //         Point { x: WIDTH / 2, y: 0 },
+    //         Point { x: 0, y: HEIGHT },
+    //         Point { x: WIDTH, y: HEIGHT }
+    // ];
 
-    while counter > 0 {
-        counter -= 1;
-        num = rand::thread_rng().gen_range(0, 3);
-        pen = halfway_points(&pen, &pts[num]);
-        //println!("Point: {}", pen);
-        img.put_pixel(pen.x, pen.y, pixel);
-    }
+    // let mut num: usize;
+    // let mut pen = Point { x: 350, y:350 };
+    // let pixel = img[(0, 0)];
 
-    let ref mut f_out = File::create(&Path::new("tri.png")).unwrap();
+    // while counter > 0 {
+    //     counter -= 1;
+    //     num = rand::thread_rng().gen_range(0, 3);
+    //     pen = halfway_points(&pen, &pts[num]);
+    //     //println!("Point: {}", pen);
+    //     img.put_pixel(pen.x, pen.y, pixel);
+    // }
+
+    let ref mut f_out = File::create(&Path::new("noise.png")).unwrap();
     let _ = image::ImageLuma8(img).save(f_out, image::PNG);
 }

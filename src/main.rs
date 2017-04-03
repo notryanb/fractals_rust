@@ -23,7 +23,8 @@ impl fmt::Display for Point {
 const WIDTH: u32 = 800;
 const HEIGHT: u32 = 600;
 
-fn halfway_points(pt1: &Point, pt2: &Point) -> Point {
+/// Halfway function
+pub fn halfway_points(pt1: &Point, pt2: &Point) -> Point {
     Point { 
         x: (pt1.x + pt2.x) / 2,
         y: (pt1.y + pt2.y) / 2
